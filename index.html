@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZED-KITCHEN طابونة 5×1 عصرية</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial;
+  direction:rtl;
+  background:#f4f4f4;
+}
+
+header{
+  background:linear-gradient(to left,#b22222,#ff4500);
+  color:white;
+  text-align:center;
+  padding:50px 20px;
+}
+
+header h1{
+  margin:0;
+  font-size:32px;
+}
+
+.section{
+  padding:30px;
+  text-align:center;
+}
+
+.price{
+  font-size:30px;
+  color:#b22222;
+  font-weight:bold;
+}
+
+.free{
+  color:green;
+  font-weight:bold;
+  font-size:18px;
+}
+
+/* الصور */
+.gallery{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+}
+
+.gallery img{
+  width:300px;
+  max-width:100%;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+  transition:0.3s;
+}
+
+.gallery img:hover{
+  transform:scale(1.05);
+}
+
+/* الفورم */
+form{
+  background:white;
+  max-width:400px;
+  margin:20px auto;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:16px;
+  display:block;
+}
+
+input:focus{
+  outline:none;
+  border:1px solid #b22222;
+  box-shadow:0 0 5px rgba(178,34,34,0.4);
+}
+
+button{
+  width:100%;
+  padding:14px;
+  background:#b22222;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#8b0000;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🔥 5×1 طابونة عصرية 🔥</h1>
+<p>أفضل طابونة متعددة الاستعمالات في الجزائر</p>
+</header>
+
+<!-- الصور -->
+<section class="section">
+<img src="https://via.placeholder.com/300.png" alt="اختبار صورة" style="width:300px;"></section>
+
+<!-- السعر -->
+<section class="section">
+<p class="price">السعر: 15000 دج</p>
+<p class="free">🚚 التوصيل مجاني إلى باب المنزل</p>
+<p>💰 الدفع عند الاستلام</p>
+</section>
+
+<!-- الفورم -->
+<section class="section">
+<h2>📦 اطلب الآن</h2>
+
+<form id="orderForm">
+<input type="text" id="name" placeholder="الاسم" required>
+<input type="text" id="lastname" placeholder="اللقب" required>
+<input type="tel" id="phone" placeholder="رقم الهاتف" required>
+<input type="text" id="wilaya" placeholder="الولاية" required>
+<button type="submit">تأكيد الطلب</button>
+</form>
+
+</section>
+
+<script>
+document.getElementById("orderForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const button = document.querySelector("button");
+    button.disabled = true;
+    button.innerText = "جارٍ إرسال الطلب...";
+
+    const data = {
+        name: document.getElementById("name").value.trim(),
+        lastname: document.getElementById("lastname").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        wilaya: document.getElementById("wilaya").value.trim()
+    };
+
+    try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbxRhRj5E_ZT6TiptJegJ030m4RhVzizWY3OOYrPspu-nJ7thI95LJwxASYyqcl9x1Pg/exec", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        if(response.ok){
+            alert("✅ تم تسجيل طلبك بنجاح! سنتصل بك قريباً.");
+            document.getElementById("orderForm").reset();
+        } else {
+            alert("❌ حدث خطأ في الإرسال.");
+        }
+
+    } catch (error) {
+        alert("❌ حدث خطأ، تأكد من رابط Google Script.");
+    }
+
+    button.disabled = false;
+    button.innerText = "تأكيد الطلب";
+});
+</script>
+
+</body>
+</html>
